@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Pressboard Cash Register</h1>
+    <p class="lead">Step 1: Create a new order.</p>
+    <p class="lead">Step 2: Apply discounts (if available).</p>
+    <p class="lead">Step 3: Finish Order.</p>
+    <p class="lead">Bulk Discount Examples: [1]Buy two get one free. [2]Buy three get one free [3]Buy four get two free. [4]And So on</p>
+    <p class="lead">Discount Rule 1: In order to apply coupon discount the total must be more than 50.</p>
+    <p class="lead">Discount Rule 2: In order to apply bulk discount at least one item must be on sale.</p>
+    <p class="lead">Please click on the button bellow to create a new order.</p>
+    <p>@Html.ActionLink("New Order", "Create", "Orders", "", new { @class = "btn btn-primary btn-lg" })</p>
+</div>

@@ -1,0 +1,28 @@
+﻿@model pressboard.cashregisterexam.model.OrderItem
+
+<tr id="OrderItem">
+
+    @using (Html.BeginCollectionItem("Items"))
+    {
+        <td>
+            @Html.EditorFor(model => model.Item.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Item.Name, "", new { @class = "text-danger" })
+        </td>
+        <td>
+            @Html.EnumDropDownListFor(model => model.Item.Unit)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+        </td>
+        <td>
+            @Html.EditorFor(model => model.Item.Price, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Item.Price, "", new { @class = "text-danger" })
+        </td>
+        <td>
+            @Html.CheckBoxFor(model => model.Item.OnSale, new { htmlAttributes = new { @class = "form-control" } })
+        </td>
+    }
+</tr>
+
+

@@ -1,0 +1,99 @@
+﻿@model pressboard.cashregisterexam.model.Order
+
+@{
+    ViewBag.Title = "ShowOrderCreated";
+}
+
+<h2>Redis Key: @Model.Key</h2>
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            <h4>Product</h4>
+        </th>
+        <th>
+            <h4>Unit</h4>
+        </th>
+        <th>
+            <h4>Quantity</h4>
+        </th>
+        <th>
+            <h4>Unit Price</h4>
+        </th>
+        <th></th>
+    </tr>
+    @{
+
+        foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>
+                    @item.Item.Name
+                </td>
+                <td>
+                    @item.Item.Unit
+                </td>
+                <td>
+
+                    @item.Quantity
+                </td>
+                <td>
+                    @item.Item.Price
+
+                </td>
+                <td>
+                    @{
+                        if (@item.Item.OnSale)
+                        { @Html.Label("ON SALE")
+                            ViewBag.OnSale = true;
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    }
+</table>
+<hr/>
+@{
+
+    if (Model.Discount == 0)
+    {
+        if(Model.Total > 50 )
+        {
+            using (Html.BeginForm("ApplyCoupon", "Orders", new { key = Model.Key }, FormMethod.Post, null))
+            {
+            <input type="submit" value="Apply Coupon Discount" class="btn btn-primary" />
+            }
+        }
+        else
+        {
+            <p>Please remember, to have a Coupon Discount option available the total must be more than 50</p>
+        }
+        <br />
+        if (ViewBag.OnSale)
+        {
+            using (Html.BeginForm("ApplyBulk", "Orders", new { key = Model.Key }, FormMethod.Post, null))
+            {
+            <input type="submit" value="Apply Bulk Discount" class="btn btn-danger" />
+            }
+        }
+        else
+        {
+            <p>Please remember, to have a Bulk Discount option available at least one item should be ON SALE</p>
+        }
+        <hr />
+        <h2>Total: @Model.Total</h2>
+    }
+    else
+    {
+        <hr />
+        <h2>New Total: @Model.Total</h2>
+    }
+}
+<hr />
+@Html.ActionLink("Finish Order", "Index", "Home")
+
